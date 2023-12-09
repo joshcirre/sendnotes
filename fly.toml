@@ -30,6 +30,9 @@ auto_start_machines = true
 min_machines_running = 0
 processes = ["app"]
 
+[deploy]
+release_command = "php /var/www/html/artisan migrate --force"
+
 [[vm]]
 cpu_kind = "shared"
 cpus = 1
