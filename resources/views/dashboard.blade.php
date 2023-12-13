@@ -10,7 +10,6 @@
             <div class="p-6 text-gray-900">
                 <livewire:dashboardstats />
             </div>
-
         </div>
     </div>
 </x-app-layout>
