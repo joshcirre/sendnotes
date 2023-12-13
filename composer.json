@@ -13,6 +13,8 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "livewire/volt": "^1.0",
+        "symfony/http-client": "^7.0",
+        "symfony/postmark-mailer": "^7.0",
         "wireui/wireui": "^1.18"
     },
     "require-dev": {

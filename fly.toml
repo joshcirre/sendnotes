@@ -21,6 +21,9 @@ LOG_LEVEL = "info"
 LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
 SESSION_DRIVER = "cookie"
 SESSION_SECURE_COOKIE = "true"
+MAIL_MAILER = "postmark"
+MAIL_FROM_ADDRESS = "sendnotes@zimfy.co"
+MAIL_FROM_NAME = "Sendnotes"
 
 [http_service]
 internal_port = 8080
@@ -37,7 +40,6 @@ release_command = "php /var/www/html/artisan migrate --force"
 app = ""
 cron = "cron -f"
 worker = "php artisan queue:listen"
-
 
 [[vm]]
 cpu_kind = "shared"

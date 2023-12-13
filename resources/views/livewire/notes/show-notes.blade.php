@@ -52,8 +52,12 @@ new class extends Component {
                     <x-card wire:key='{{ $note->id }}'>
                         <div class="flex justify-between">
                             <div>
-                                <a href="{{ route('notes.edit', $note) }}" wire:navigate
-                                    class="text-xl font-bold hover:underline hover:text-blue-500">{{ $note->title }}</a>
+                                @can('update', $note)
+                                    <a href="{{ route('notes.edit', $note) }}" wire:navigate
+                                        class="text-xl font-bold hover:underline hover:text-blue-500">{{ $note->title }}</a>
+                                @else
+                                    <p class="text-xl font-bold text-gray-500">{{ $note->title }}</p>
+                                @endcan
                                 <p class="mt-2 text-xs">{{ Str::limit($note->body, 50) }}</p>
                             </div>
                             <div class="text-xs text-gray-500">
@@ -63,7 +67,8 @@ new class extends Component {
                         <div class="flex items-end justify-between mt-4 space-x-1">
                             <p class="text-xs">Recipient: <span class="font-semibold">{{ $note->recipient }}</span></p>
                             <div>
-                                <x-button.circle icon="eye"></x-button.circle>
+                                <x-button.circle icon="eye"
+                                    href="{{ route('notes.view', $note) }}"></x-button.circle>
                                 <x-button.circle icon="trash"
                                     wire:click="delete('{{ $note->id }}')"></x-button.circle>
                             </div>
