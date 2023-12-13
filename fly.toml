@@ -33,6 +33,12 @@ processes = ["app"]
 [deploy]
 release_command = "php /var/www/html/artisan migrate --force"
 
+[processes]
+app = ""
+cron = "cron -f"
+worker = "php artisan queue:listen"
+
+
 [[vm]]
 cpu_kind = "shared"
 cpus = 1
