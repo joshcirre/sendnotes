@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for sendnotes on 2023-12-14T01:58:01-07:00
+# fly.toml app configuration file generated for sendnotes on 2023-12-08T23:21:14-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -8,41 +8,40 @@ primary_region = "lax"
 console_command = "php /var/www/html/artisan tinker"
 
 [build]
-  [build.args]
-    NODE_VERSION = "18"
-    PHP_VERSION = "8.2"
-
-[deploy]
-  release_command = "php /var/www/html/artisan migrate --force"
+[build.args]
+NODE_VERSION = "18"
+PHP_VERSION = "8.2"
 
 [env]
-  APP_ENV = "production"
-  APP_URL = "https://sendnotes.fly.dev"
-  DB_CONNECTION = "pgsql"
-  LOG_CHANNEL = "stderr"
-  LOG_LEVEL = "info"
-  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
-  MAIL_FROM_ADDRESS = "sendnotes@zimfy.co"
-  MAIL_FROM_NAME = "Sendnotes"
-  MAIL_MAILER = "postmark"
-  SESSION_DRIVER = "cookie"
-  SESSION_SECURE_COOKIE = "true"
-
-[processes]
-  app = ""
-  cron = "cron -f"
-  worker = "php artisan queue:listen"
+APP_ENV = "production"
+DB_CONNECTION = "pgsql"
+APP_URL = "https://sendnotes.fly.dev"
+LOG_CHANNEL = "stderr"
+LOG_LEVEL = "info"
+LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+SESSION_DRIVER = "cookie"
+SESSION_SECURE_COOKIE = "true"
+MAIL_MAILER = "postmark"
+MAIL_FROM_ADDRESS = "sendnotes@zimfy.co"
+MAIL_FROM_NAME = "Sendnotes"
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ["app"]
+internal_port = 8080
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
+
+[deploy]
+release_command = "php /var/www/html/artisan migrate --force"
+
+[processes]
+app = ""
+cron = "cron -f"
+worker = "php artisan queue:listen"
 
 [[vm]]
-  cpu_kind = "shared"
-  cpus = 1
-  memory_mb = 1024
-  processes = ["app", "cron", "worker"]
+cpu_kind = "shared"
+cpus = 1
+memory_mb = 1024
