@@ -12,6 +12,7 @@ new #[Layout('layouts.app')] class extends Component {
     public $noteRecipient;
     public $noteSendDate;
     public $noteIsPublished;
+    public $minDate;
 
     public function mount(Note $note)
     {
@@ -22,6 +23,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->noteRecipient = $note->recipient;
         $this->noteSendDate = $note->send_date;
         $this->noteIsPublished = $note->is_published;
+        $this->minDate = now()->isBefore('09:00 EST') ? now() : now()->addDay();
     }
 
     public function saveNote()
@@ -58,7 +60,8 @@ new #[Layout('layouts.app')] class extends Component {
                 placeholder="Share all your thoughts with your friend." />
             <x-input icon="user" wire:model="noteRecipient" label="Recipient" placeholder="yourfriend@email.com"
                 type="email" />
-            <x-input icon="calendar" wire:model="noteSendDate" type="date" label="Send Date" />
+            <x-datetime-picker :min="$minDate" without-tips without-time label="Send Date"
+                wire:model="noteSendDate" />
             <x-checkbox label="Note Published" wire:model='noteIsPublished' />
             <div class="flex justify-between pt-4">
                 <x-button type="submit" secondary spinner="saveNote">Save Note</x-button>

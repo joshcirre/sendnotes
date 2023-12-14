@@ -7,6 +7,12 @@ new class extends Component {
     public $noteBody;
     public $noteRecipient;
     public $noteSendDate;
+    public $minDate;
+
+    public function mount()
+    {
+        $this->minDate = now()->isBefore('09:00 EST') ? now() : now()->addDay();
+    }
 
     public function submit()
     {
@@ -38,7 +44,7 @@ new class extends Component {
         <x-textarea wire:model="noteBody" label="Your Note" placeholder="Share all your thoughts with your friend." />
         <x-input icon="user" wire:model="noteRecipient" label="Recipient" placeholder="yourfriend@email.com"
             type="email" />
-        <x-input icon="calendar" wire:model="noteSendDate" type="date" label="Send Date" />
+        <x-datetime-picker :min="$minDate" without-tips without-time label="Send Date" wire:model="noteSendDate" />
         <div class="pt-4">
             <x-button type="submit" primary right-icon="calendar" spinner>Schedule Note</x-button>
         </div>
